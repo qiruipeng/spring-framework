@@ -47,6 +47,7 @@ import java.util.Properties;
  * @see org.springframework.aop.framework.ProxyFactory
  */
 @SuppressWarnings("serial")
+//实现了MethodInterceptor，当前类就是一个jdk代理对象，核心方法就是invoke
 public class TransactionInterceptor extends TransactionAspectSupport implements MethodInterceptor, Serializable {
 
 	/**
@@ -84,6 +85,8 @@ public class TransactionInterceptor extends TransactionAspectSupport implements 
 	}
 
 
+	//每个被代理的方法都先执行这个方法，然后再执行目标方法
+	//Proxy.newProxyInstance()
 	public Object invoke(final MethodInvocation invocation) throws Throwable {
 		// Work out the target class: may be {@code null}.
 		// The TransactionAttributeSource should be passed the target class

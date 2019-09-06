@@ -50,6 +50,7 @@ package org.springframework.beans.factory;
  * @see org.springframework.aop.framework.ProxyFactoryBean
  * @see org.springframework.jndi.JndiObjectFactoryBean
  */
+//FactoryBean在IOC容器的基础上给Bean的实现加上了一个简单工厂模式和装饰模式，我们可以在getObject()方法中灵活配置
 public interface FactoryBean<T> {
 
 	/**

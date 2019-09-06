@@ -107,6 +107,7 @@ import org.springframework.beans.BeansException;
  * @see DisposableBean#destroy
  * @see org.springframework.beans.factory.support.RootBeanDefinition#getDestroyMethodName
  */
+//IOC最基本的容器，负责生产和管理bean，它为其他具体的IOC容器提供了最基本的规范
 public interface BeanFactory {
 
 	/**

@@ -76,10 +76,12 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		String mode = element.getAttribute("mode");
 		if ("aspectj".equals(mode)) {
 			// mode="aspectj"
+			// 组织织入模式
 			registerTransactionAspect(element, parserContext);
 		}
 		else {
 			// mode="proxy"
+			// 代理模式
 			AopAutoProxyConfigurer.configureAutoProxyCreator(element, parserContext);
 		}
 		return null;

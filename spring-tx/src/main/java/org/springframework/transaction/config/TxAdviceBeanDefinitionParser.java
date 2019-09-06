@@ -67,6 +67,7 @@ class TxAdviceBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
 
 
 	@Override
+	//处理事物的核心类：事物拦截器
 	protected Class<?> getBeanClass(Element element) {
 		return TransactionInterceptor.class;
 	}

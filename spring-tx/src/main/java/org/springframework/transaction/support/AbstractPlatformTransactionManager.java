@@ -333,6 +333,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	 * @see #doBegin
 	 */
 	public final TransactionStatus getTransaction(TransactionDefinition definition) throws TransactionException {
+		//模板方法：获取当前事物
 		Object transaction = doGetTransaction();
 
 		// Cache debug flag to avoid repeated checks.
@@ -343,6 +344,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 			definition = new DefaultTransactionDefinition();
 		}
 
+		//当前存在事物，按照当前事物的传播属性判断处理
 		if (isExistingTransaction(transaction)) {
 			// Existing transaction found -> check propagation behavior to find out how to behave.
 			return handleExistingTransaction(definition, transaction, debugEnabled);
@@ -369,6 +371,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 				boolean newSynchronization = (getTransactionSynchronization() != SYNCHRONIZATION_NEVER);
 				DefaultTransactionStatus status = newTransactionStatus(
 						definition, transaction, true, newSynchronization, debugEnabled, suspendedResources);
+				//模板方法：开启事物
 				doBegin(transaction, definition);
 				prepareSynchronization(status, definition);
 				return status;
@@ -392,6 +395,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	/**
 	 * Create a TransactionStatus for an existing transaction.
 	 */
+	//如果当前存在事物，按照事物的传播属性返回一个事物状态描述
 	private TransactionStatus handleExistingTransaction(
 			TransactionDefinition definition, Object transaction, boolean debugEnabled)
 			throws TransactionException {
@@ -721,6 +725,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 			return;
 		}
 
+		//利用2pc的方式，提交事物
 		processCommit(defStatus);
 	}
 
@@ -752,6 +757,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 					if (status.isDebug()) {
 						logger.debug("Initiating transaction commit");
 					}
+					//模板方法，获取数据库连接，提交事物
 					doCommit(status);
 				}
 				// Throw UnexpectedRollbackException if we have a global rollback-only

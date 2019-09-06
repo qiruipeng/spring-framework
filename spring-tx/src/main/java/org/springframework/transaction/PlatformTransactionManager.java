@@ -41,6 +41,7 @@ package org.springframework.transaction;
  * @see org.springframework.transaction.interceptor.TransactionInterceptor
  * @see org.springframework.transaction.interceptor.TransactionProxyFactoryBean
  */
+//平台事物管理器，策略模式，具体实现交给子类jdbc、ibatis、hibernate、jpa等
 public interface PlatformTransactionManager {
 
 	/**
@@ -65,6 +66,12 @@ public interface PlatformTransactionManager {
 	 * @see TransactionDefinition#getIsolationLevel
 	 * @see TransactionDefinition#getTimeout
 	 * @see TransactionDefinition#isReadOnly
+	 */
+
+	/**
+	 * 返回一个当前活动或者创建一个事物
+	 * TransactionDefinition：定义了事物的传播属性和隔离级别
+	 * TransactionStatus:对事物状态的描述
 	 */
 	TransactionStatus getTransaction(TransactionDefinition definition) throws TransactionException;
 
