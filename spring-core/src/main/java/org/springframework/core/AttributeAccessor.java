@@ -23,6 +23,7 @@ package org.springframework.core;
  * @author Rob Harrop
  * @since 2.0
  */
+//封装属性信息
 public interface AttributeAccessor {
 
 	/**

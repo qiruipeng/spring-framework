@@ -23,6 +23,7 @@ package org.springframework.beans;
  * @author Juergen Hoeller
  * @since 2.0
  */
+//获取对象信息
 public interface BeanMetadataElement {
 
 	/**

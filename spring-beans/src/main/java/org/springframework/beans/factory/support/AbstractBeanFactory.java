@@ -228,10 +228,12 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			final String name, final Class<T> requiredType, final Object[] args, boolean typeCheckOnly)
 			throws BeansException {
 
+		//获取beanname,name有可能是factoryBean或者别名等
 		final String beanName = transformedBeanName(name);
 		Object bean;
 
 		// Eagerly check singleton cache for manually registered singletons.
+		//通过beanName获取实例对象
 		Object sharedInstance = getSingleton(beanName);
 		if (sharedInstance != null && args == null) {
 			if (logger.isDebugEnabled()) {

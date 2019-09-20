@@ -250,6 +250,7 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 		final PlatformTransactionManager tm = determineTransactionManager(txAttr);
 		final String joinpointIdentification = methodIdentification(method, targetClass);
 
+		//编程式事物处理
 		if (txAttr == null || !(tm instanceof CallbackPreferringPlatformTransactionManager)) {
 			// Standard transaction demarcation with getTransaction and commit/rollback calls.
 			TransactionInfo txInfo = createTransactionIfNecessary(tm, txAttr, joinpointIdentification);
@@ -270,7 +271,7 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 			commitTransactionAfterReturning(txInfo);
 			return retVal;
 		}
-
+		//声明式事物处理
 		else {
 			// It's a CallbackPreferringPlatformTransactionManager: pass a TransactionCallback in.
 			try {
