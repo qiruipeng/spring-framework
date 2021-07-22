@@ -67,11 +67,8 @@ public abstract aspect AbstractTransactionAspect extends TransactionAspectSuppor
 		MethodSignature methodSignature = (MethodSignature) thisJoinPoint.getSignature();
 		// Adapt to TransactionAspectSupport's invokeWithinTransaction...
 		try {
-			return invokeWithinTransaction(methodSignature.getMethod(), txObject.getClass(), new InvocationCallback() {
-				public Object proceedWithInvocation() throws Throwable {
-					return proceed(txObject);
-				}
-			});
+			//这里和jdk动态代理很像啊
+			return invokeWithinTransaction(methodSignature.getMethod(), txObject.getClass(), () -> proceed(txObject));
 		}
 		catch (RuntimeException | Error ex) {
 			throw ex;
@@ -87,6 +84,7 @@ public abstract aspect AbstractTransactionAspect extends TransactionAspectSuppor
 	 * transactional methods. For each selected joinpoint, TransactionMetadata
 	 * will be retrieved using Spring's TransactionAttributeSource interface.
 	 */
+	//模板模式，模板方法在org/springframework/transaction/aspectj/AnnotationTransactionAspect.aj:72实现
 	protected abstract pointcut transactionalMethodExecution(Object txObject);
 
 

@@ -53,12 +53,14 @@ public aspect AnnotationTransactionAspect extends AbstractTransactionAspect {
 	 * Matches the execution of any public method in a type with the Transactional
 	 * annotation, or any subtype of a type with the Transactional annotation.
 	 */
+	//限定了必须为public方法，否则事务失效
 	private pointcut executionOfAnyPublicMethodInAtTransactionalType() :
 		execution(public * ((@Transactional *)+).*(..)) && within(@Transactional *);
 
 	/**
 	 * Matches the execution of any method with the Transactional annotation.
 	 */
+	//匹配所有的方法，这个切点是包括上面的，为什么这样弄呢
 	private pointcut executionOfTransactionalMethod() :
 		execution(@Transactional * *(..));
 
@@ -66,6 +68,7 @@ public aspect AnnotationTransactionAspect extends AbstractTransactionAspect {
 	 * Definition of pointcut from super aspect - matched join points
 	 * will have Spring transaction management applied.
 	 */
+	//定义了事务管理器所管理的所有切点
 	protected pointcut transactionalMethodExecution(Object txObject) :
 		(executionOfAnyPublicMethodInAtTransactionalType() || executionOfTransactionalMethod() ) && this(txObject);
 

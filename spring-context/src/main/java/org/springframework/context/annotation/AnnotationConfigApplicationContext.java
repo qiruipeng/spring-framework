@@ -81,6 +81,8 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * from the given annotated classes and automatically refreshing the context.
 	 * @param annotatedClasses one or more annotated classes,
 	 * e.g. {@link Configuration @Configuration} classes
+	 * 最终会注册到
+	 * @see DefaultListableBeanFactory.beanDefinitionMap
 	 */
 	public AnnotationConfigApplicationContext(Class<?>... annotatedClasses) {
 		this();
